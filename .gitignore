@@ -1,0 +1,32 @@
+# Environment variables
+.env
+
+# Generated images
+generated_image.png
+*.png
+
+# Java compiled files
+*.class
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log 

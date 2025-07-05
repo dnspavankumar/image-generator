@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title"> AI Image Generator</h1>
+            <p class="subtitle">Create stunning images with AI using Gemini</p>
+        </header>
+
+        <main class="main">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="prompt" class="label">Describe your image</label>
+                    <textarea 
+                        id="prompt" 
+                        class="prompt-input" 
+                        placeholder="Enter a detailed description of the image you want to generate..."
+                        rows="4"
+                    ></textarea>
+                </div>
+                
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-text">Generate Image</span>
+                    <div class="loading-spinner" style="display: none;">
+                        <div class="spinner"></div>
+                    </div>
+                </button>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h2 class="result-title">Generated Image</h2>
+                <div class="image-container">
+                    <img id="generatedImage" class="generated-image" alt="Generated image">
+                </div>
+                <div class="image-actions">
+                    <button id="downloadBtn" class="action-btn download-btn">
+                         Download Image
+                    </button>
+                    <button id="newImageBtn" class="action-btn new-image-btn">
+                         Generate New Image
+                    </button>
+                </div>
+            </div>
+
+            <div class="error-section" id="errorSection" style="display: none;">
+                <div class="error-message">
+                    <span class="error-icon">⚠️</span>
+                    <span id="errorText"></span>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by Google Gemini AI</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
