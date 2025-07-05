@@ -23,7 +23,7 @@ public class GeminiImageGenerator {
             scanner.close();
         }
         
-        System.out.println("Generating image for: " + prompt);
+        System.err.println("Generating image for: " + prompt);
         
         String payload = "{\n" +
                 "  \"contents\": [{\n" +
@@ -54,6 +54,7 @@ public class GeminiImageGenerator {
 
         // Extract base64 image data from the response (simple parsing)
         String responseStr = response.toString();
+        System.err.println("RAW RESPONSE: " + responseStr); // Debug print
         int dataIdx = responseStr.indexOf("\"data\": \"");
         if (dataIdx != -1) {
             int start = dataIdx + 9;

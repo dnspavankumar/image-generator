@@ -1,0 +1,3 @@
+$env:GEMINI_API_KEY="AIzaSyDf70oZfa9Z3hTfjv-CXa-4edNZOg7cQ6o"
+javac GeminiImageGenerator.java
+java GeminiImageGenerator "generate an image of pikachu"

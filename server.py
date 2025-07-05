@@ -3,6 +3,7 @@ import subprocess
 import json
 import os
 from dotenv import load_dotenv
+import traceback
 
 # Load environment variables from .env file
 load_dotenv()
@@ -24,6 +25,8 @@ def generate_image():
         data = request.get_json()
         prompt = data.get('prompt', '')
         
+        print("DEBUG: GEMINI_API_KEY =", os.environ.get("GEMINI_API_KEY"))
+        
         if not prompt:
             return jsonify({'success': False, 'error': 'No prompt provided'}), 400
         
@@ -34,6 +37,8 @@ def generate_image():
             text=True,
             cwd='.'
         )
+        print("JAVA STDOUT:", result.stdout)
+        print("JAVA STDERR:", result.stderr)
         
         if result.returncode != 0:
             return jsonify({
@@ -56,6 +61,7 @@ def generate_image():
         })
         
     except Exception as e:
+        traceback.print_exc()
         return jsonify({
             'success': False,
             'error': f'Server error: {str(e)}'
