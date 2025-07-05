@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URI;
 import java.util.Scanner;
 
 public class GeminiImageGenerator {
@@ -33,7 +34,7 @@ public class GeminiImageGenerator {
                 "  \"generationConfig\": {\"responseModalities\": [\"TEXT\", \"IMAGE\"]}\n" +
                 "}";
 
-        URL url = new URL(ENDPOINT + "?key=" + API_KEY);
+        URL url = URI.create(ENDPOINT + "?key=" + API_KEY).toURL();
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -59,14 +60,11 @@ public class GeminiImageGenerator {
             int end = responseStr.indexOf("\"", start);
             String base64Image = responseStr.substring(start, end);
 
-            // Decode and save the image
-            byte[] imageBytes = java.util.Base64.getDecoder().decode(base64Image);
-            try (FileOutputStream fos = new FileOutputStream("generated_image.png")) {
-                fos.write(imageBytes);
-            }
-            System.out.println("Image saved as generated_image.png");
+            // Just print the base64 data to stdout (no file saving)
+            System.out.println(base64Image);
         } else {
-            System.out.println("No image data found in response.");
+            System.err.println("No image data found in response.");
+            System.exit(1);
         }
     }
 }

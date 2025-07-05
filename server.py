@@ -2,8 +2,6 @@ from flask import Flask, request, jsonify, send_from_directory
 import subprocess
 import json
 import os
-import base64
-import tempfile
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -29,10 +27,6 @@ def generate_image():
         if not prompt:
             return jsonify({'success': False, 'error': 'No prompt provided'}), 400
         
-        # Create a temporary file for the generated image
-        with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_file:
-            temp_filename = temp_file.name
-        
         # Run the Java program with the prompt
         result = subprocess.run(
             ['java', 'GeminiImageGenerator', prompt],
@@ -47,20 +41,14 @@ def generate_image():
                 'error': f'Java execution failed: {result.stderr}'
             }), 500
         
-        # Check if the image was generated
-        if not os.path.exists('generated_image.png'):
+        # Get the base64 image data from stdout
+        image_data = result.stdout.strip()
+        
+        if not image_data:
             return jsonify({
                 'success': False, 
-                'error': 'Image generation failed - no output file created'
+                'error': 'Image generation failed - no image data received'
             }), 500
-        
-        # Read and encode the image
-        with open('generated_image.png', 'rb') as img_file:
-            image_data = base64.b64encode(img_file.read()).decode('utf-8')
-        
-        # Clean up the temporary file
-        if os.path.exists(temp_filename):
-            os.unlink(temp_filename)
         
         return jsonify({
             'success': True,

@@ -1,7 +1,7 @@
 # Environment variables
 .env
 
-# Generated images
+# Generated images (if any are created)
 generated_image.png
 *.png
 
